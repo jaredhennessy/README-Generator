@@ -1,0 +1,15 @@
+{
+  "title": "Readme Generator",
+
+  "url": "https://github.com/jaredhennessy/README-Generator",
+
+  "description": "This project uses a command-line interface to guide the user through the creation of a README file for their development project. It then formats their responses using markdown and integrates items from their project repository via the GitHub API.",
+
+  "install": "1. npm install inquirer 2. npm install fs",
+
+  "usage": "AS A developer, I WANT a README generator SO THAT I can easily put together a good README for a new project",
+
+  "license": "MIT License",
+
+  "contributors": "Jared Hennessy"
+}
