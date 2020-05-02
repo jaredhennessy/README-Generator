@@ -43,13 +43,15 @@ inquirer
   .then(function (data) {
     var filename = data.title.toLowerCase().split(" ").join("") + ".json";
 
-    fs.writeFile(filename, JSON.stringify(data, null, "\n\n"), function (err) {
-      if (err) {
-        return console.log(err);
-      }
+    console.log(data);
 
-      console.log("Success!");
-    });
+    // fs.writeFile(filename, JSON.stringify(data, null, "\n\n"), function (err) {
+    //   if (err) {
+    //     return console.log(err);
+    //   }
+
+    console.log(`Thank you! See ${filename} for output.`);
+    // });
   });
 
 //   * Questions
