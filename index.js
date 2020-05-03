@@ -49,11 +49,11 @@ inquirer
       name: "contributors",
       message: "Who contributed to this project?",
     },
-    {
-      type: "input",
-      name: "demo",
-      message: "Include a link to a giphy or other demo: ",
-    },
+    // {
+    //   type: "input",
+    //   name: "demo",
+    //   message: "Include a link to a giphy or other demo: ",
+    // },
     {
       type: "input",
       name: "tests",
@@ -62,8 +62,7 @@ inquirer
     {
       type: "input",
       name: "contact",
-      message:
-        "Include an email address for questions (leave blank to pull from GitHub profile):",
+      message: "Include an email address for questions:",
     },
   ])
   .then(function (data) {
@@ -74,18 +73,19 @@ inquirer
     const projectRepo = data.repo;
     let projectTitle;
     let projectUrl;
-    let projectLanguage;
+    let projectLang;
+    let projectLangBadge;
     let projectDesc;
-    const projectInst = install;
-    const projectUse = usage;
-    const projectLic = license;
+    const projectInst = data.install;
+    const projectUse = data.usage;
+    const projectLic = data.license;
     const projectLicBadge =
       "https://img.shields.io/static/v1?label=license&message=" +
-      license +
+      data.license +
       "&color=brightgreen";
-    const projectCont = contributors;
-    const projectTests = tests;
-    const projectContact = contact;
+    const projectCont = data.contributors;
+    const projectTests = data.tests;
+    const projectContact = data.contact;
 
     // console.log(data);
 
@@ -110,24 +110,24 @@ inquirer
           projectDesc = data.desc;
         }
         projectUrl = res.data.html_url;
-        projectLanguage = res.data.language;
-        console.log(projectTitle);
-        console.log(projectUrl);
-        console.log(projectLanguage);
-        console.log(projectDesc);
-        console.log(projectInst);
-        console.log(projectUse);
-        console.log(projectLic);
-        console.log(projectCont);
-        console.log(projectTests);
-        console.log(projectQs);
-        console.log(projectContact);
+        projectLang = res.data.language;
+        projectLangBadge =
+          "https://img.shields.io/static/v1?label=made%20with&message=" +
+          projectLang +
+          "&color=informational";
 
         const filename = projectTitle.toLowerCase().split(" ").join("") + ".md";
-        let fileText =
-          `# [${projectTitle}](${projectUrl})\n` +
-          `${projectLicBadge}\n` +
-          ` ## Description\n` +
+        let fileText = `# [${projectTitle}](${projectUrl})\n`;
+
+        if (projectLang !== "") {
+          fileText += `![${projectLang}](${projectLangBadge}) `;
+        }
+        if (projectLang !== "") {
+          fileText += ` ![${projectLang}](${projectLangBadge})\n`;
+        }
+
+        fileText +=
+          `\n## Description\n` +
           `${projectDesc}\n` +
           `## Table of Contents\n` +
           `- [Installation](#installation)\n` +
@@ -146,12 +146,18 @@ inquirer
           `## License\n` +
           `This project is licensed under the ${projectLic} license.\n` +
           `## Contributing\n` +
-          `${projectCont}​\n` +
-          `## Tests\n` +
-          `To run tests, run the following command:\n` +
-          "```\n" +
-          `${projectTests}\n` +
-          "```\n" +
+          `${projectCont}​\n`;
+
+        if (projectTests !== "") {
+          fileText +=
+            `## Tests\n` +
+            `To run tests, run the following command:\n` +
+            "```\n" +
+            `${projectTests}\n` +
+            "```\n";
+        }
+
+        fileText +=
           `## Questions\n` +
           `If you have any questions about the repo, open an issue or contact ${projectUser} directly at [${projectContact}](${projectContact}).`;
 
