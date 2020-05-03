@@ -1,6 +1,7 @@
-//jhsint esversion:6
-var inquirer = require("inquirer");
-var fs = require("fs");
+//jshint esversion:6
+const inquirer = require("inquirer");
+const fs = require("fs");
+const axios = require("axios");
 
 inquirer
   .prompt([
@@ -11,8 +12,13 @@ inquirer
     },
     {
       type: "input",
-      name: "url",
-      message: "What is the URL for the GitHub repository?",
+      name: "user",
+      message: "What is your GitHub username?",
+    },
+    {
+      type: "input",
+      name: "repo",
+      message: "What is the name of the GitHub repository?",
     },
     {
       type: "input",
@@ -41,16 +47,39 @@ inquirer
     },
   ])
   .then(function (data) {
-    var filename = data.title.toLowerCase().split(" ").join("") + ".json";
+    const filename = data.title.toLowerCase().split(" ").join("") + ".json";
+    const user = data.user;
+    const repo = data.repo;
+    const token = "4c6680567ed3bd9c03dcbb18dc8286ad2684b591";
 
     console.log(data);
 
-    // fs.writeFile(filename, JSON.stringify(data, null, "\n\n"), function (err) {
-    //   if (err) {
-    //     return console.log(err);
-    //   }
+    axios({
+      method: "get",
+      url: `https://api.github.com/repos/${user}/${repo}`,
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+      },
+      //   auth: {
+      //     username: user,
+      //     password: pass,
+      //   },
+    })
+      .then((res) => {
+        callback(null, console.log(JSON.stringify(res.data)));
 
-    console.log(`Thank you! See ${filename} for output.`);
+        // fs.writeFile(filename, JSON.stringify(data, null, "\n\n"), function (err) {
+        //   if (err) {
+        //     return console.log(err);
+        //   }
+
+        console.log(`Thank you! See ${filename} for output.`);
+      })
+      .catch((err) => {
+        callback(err);
+      });
+
     // });
   });
 
