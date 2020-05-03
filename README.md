@@ -4,7 +4,7 @@
 
 ## Demo
 
-[video](https://drive.google.com/file/d/100I4wcHxPunI_V839lvCE7c1ZvlPODmy/view)
+[video](https://drive.google.com/file/d/100I4wcHxPunI_V839lvCE7c1ZvlPODmy/view) / [example](https://github.com/jaredhennessy/README-Generator/blob/master/quarentainment.md)
 
 ## Description
 
