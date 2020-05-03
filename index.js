@@ -122,8 +122,8 @@ inquirer
         if (projectLang !== "") {
           fileText += `![${projectLang}](${projectLangBadge}) `;
         }
-        if (projectLang !== "") {
-          fileText += ` ![${projectLang}](${projectLangBadge})\n`;
+        if (projectLic !== "") {
+          fileText += ` ![${projectLic}](${projectLicBadge})\n`;
         }
 
         fileText +=
