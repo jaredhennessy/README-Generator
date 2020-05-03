@@ -9,7 +9,7 @@ inquirer
       type: "input",
       name: "user",
       message:
-        "What is the GitHub username of the project owner to be documented?",
+        "What is the GitHub username of the owner of the project to be documented?",
     },
     {
       type: "input",
