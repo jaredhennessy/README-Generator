@@ -66,8 +66,8 @@ inquirer
     },
   ])
   .then(function (data) {
-    const gitLogin = "jaredhennessy";
-    const gitToken = "4c6680567ed3bd9c03dcbb18dc8286ad2684b591";
+    // const gitLogin = "jaredhennessy";
+    // const gitToken = "4c6680567ed3bd9c03dcbb18dc8286ad2684b591";
 
     const projectUser = data.user;
     const projectRepo = data.repo;
@@ -90,12 +90,14 @@ inquirer
     // console.log(data);
 
     axios
-      .get(`https://api.github.com/repos/${projectUser}/${projectRepo}`, {
-        params: {
-          user: gitLogin,
-          token: gitToken,
-        },
-      })
+      .get(
+        `https://api.github.com/repos/${projectUser}/${projectRepo}`
+        // , {
+        //   params: {
+        //     user: gitLogin,
+        //     token: gitToken,
+        //   },}
+      )
       .then((res) => {
         // console.log(JSON.stringify(res.data));
         if (data.title === "") {
